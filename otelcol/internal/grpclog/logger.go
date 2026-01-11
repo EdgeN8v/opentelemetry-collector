@@ -5,7 +5,7 @@ package grpclog // import "go.opentelemetry.io/collector/otelcol/internal/grpclo
 
 import (
 	"strings"
-	
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"go.uber.org/zap/zapgrpc"
@@ -24,7 +24,7 @@ func SetLogger(baseLogger *zap.Logger) *zapgrpc.Logger {
 			loglevel = zapcore.WarnLevel
 		}
 		// NewIncreaseLevelCore errors only if the new log level is less than the initial core level.
-		c, err = zapcore.NewIncreaseLevelCore(core, loglevel)		
+		c, err = zapcore.NewIncreaseLevelCore(core, loglevel)
 		// In case of an error changing the level, move on, this happens when using the NopCore
 		if err != nil {
 			c = core
@@ -36,6 +36,7 @@ func SetLogger(baseLogger *zap.Logger) *zapgrpc.Logger {
 	grpclog.SetLoggerV2(logger)
 	return logger
 }
+
 // filteringCore wraps a zapcore.Core to filter out specific noisy gRPC logs.
 type filteringCore struct {
 	zapcore.Core
